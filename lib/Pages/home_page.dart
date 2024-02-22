@@ -12,6 +12,7 @@ class HomePage extends StatelessWidget {
       // HTML Jese Head BOdy aur Foot hota hai iska
       appBar: AppBar(
         title: Text("Catalog App"),
+        centerTitle: true,
         backgroundColor: Color.fromARGB(255, 240, 200, 250),
       ),
       body: Center(
