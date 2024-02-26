@@ -10,16 +10,28 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // HTML Jese Head BOdy aur Foot hota hai iska
+
       appBar: AppBar(
         title: Text("Catalog App"),
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 240, 200, 250),
       ),
+
       body: Center(
           child: Container(
         child: Text("Welcome to $nums days of Flutter from $str"),
       )),
-      drawer: Drawer(),
+
+      drawer: const Drawer(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text("Hello"),
+            Text("Box"),
+            Text("Contain"),
+          ],
+        ),
+      ),
     );
   }
 }
