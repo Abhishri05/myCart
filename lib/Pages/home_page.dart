@@ -1,10 +1,9 @@
 import "package:flutter/material.dart";
+import "package:my_cart/widgets/drawer.dart";
 
 class HomePage extends StatelessWidget {
   final int nums = 30;
   final String str = "CodePur";
-
-  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +18,7 @@ class HomePage extends StatelessWidget {
 
       body: Center(child: Text("Welcome to $nums days of Flutter from $str")),
 
-      drawer: const Drawer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text("Hello"),
-            Text("Box"),
-            Text("Contain"),
-          ],
-        ),
-      ),
+      drawer: myDrawer(),
     );
   }
 }
