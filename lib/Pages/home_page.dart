@@ -11,9 +11,11 @@ class HomePage extends StatelessWidget {
       // HTML Jese Head BOdy aur Foot hota hai iska
 
       appBar: AppBar(
-        title: const Text("Catalog App"),
+        title: const Text(
+          "Catalog App",
+          style: TextStyle(fontSize: 23),
+        ),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent,
       ),
 
       body: Center(child: Text("Welcome to $nums days of Flutter from $str")),
