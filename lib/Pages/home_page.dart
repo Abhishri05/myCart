@@ -1,11 +1,30 @@
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
+import 'dart:convert';
 import "package:my_cart/models/catalog.dart";
 import "package:my_cart/widgets/drawer.dart";
 import "package:my_cart/widgets/item_widget.dart";
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final int nums = 30;
   final String str = "CodePur";
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  loadData() async {
+    var Catajson = await rootBundle.loadString("assets/files/catalog.json");
+    var decodedData = jsonDecode(Catajson);
+    var product = decodedData["products"];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +44,11 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: ListView.builder(
           itemCount: CatalogModel.items.length,
+          // itemCount: dummylist.length,
           itemBuilder: (context, index) {
             return ItemWidget(
               item: CatalogModel.items[index],
+              // item: dummylist[index],
             );
           },
         ),
