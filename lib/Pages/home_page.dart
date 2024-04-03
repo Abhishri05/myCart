@@ -2,7 +2,8 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import 'dart:convert';
 import "package:my_cart/models/catalog.dart";
-import "package:my_cart/widgets/drawer.dart";
+import "package:my_cart/widgets/themes.dart";
+import "package:velocity_x/velocity_x.dart";
 
 class HomePage extends StatefulWidget {
   @override
@@ -22,8 +23,8 @@ class _HomePageState extends State<HomePage> {
   loadData() async {
     const CircularProgressIndicator();
     await Future.delayed(const Duration(seconds: 2));
-    var Catajson = await rootBundle.loadString("assets/files/catalog.json");
-    var decodedData = jsonDecode(Catajson);
+    var catajson = await rootBundle.loadString("assets/files/catalog.json");
+    var decodedData = jsonDecode(catajson);
     var product = decodedData["products"];
     CatalogModel.items =
         List.from(product).map<Item>((item) => Item.fromMap(item)).toList();
@@ -32,64 +33,67 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // final dummylist = List.generate(10, (index) => CatalogModel.items[0]);
-
     return Scaffold(
-      // HTML Jese Head BOdy aur Foot hota hai iska
-
-      appBar: AppBar(
-        title: const Text(
-          "Catalog App",
-          style: TextStyle(fontSize: 23),
-        ),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        // child: ListView.builder(
-        //   itemCount: CatalogModel.items.length,
-        //   // itemCount: dummylist.length,
-        //   itemBuilder: (context, index) {
-        //     return ItemWidget(
-        //       item: CatalogModel.items[index],
-        //       // item: dummylist[index],
-        //     );
-        //   },
-        // ),
-
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
+      backgroundColor: MyTheme.creamColor,
+      body: SafeArea(
+        // Upar aur niche overlap hone se bachane ke liye
+        child: Container(
+          padding: Vx.m32, //32 ki Padding from All Sides
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [CatalogHeader(), Cataloglist().expand()],
           ),
-          itemBuilder: (context, index) {
-            final item = CatalogModel.items[index];
-            return Card(
-              clipBehavior: Clip.antiAlias,
-              shadowColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              elevation: 5,
-              child: GridTile(
-                footer: Text("\$${item.price.toString()}"),
-                header: Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: const BoxDecoration(color: Colors.deepPurple),
-                  child: Text(
-                    item.name,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ),
-                child: Image.network(item.image),
-              ),
-            );
-          },
-          itemCount: CatalogModel.items.length,
         ),
       ),
-
-      drawer: myDrawer(),
     );
+  }
+}
+
+class CatalogHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // const Text("Catalog App"),
+        "Catalog App".text.xl5.color(MyTheme.darBluish).bold.make(),
+        "Trending Prodcuts".text.xl2.make(),
+      ],
+    );
+  }
+}
+
+class Cataloglist extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        final catalog = CatalogModel.items[index];
+        return CatalogItem(
+          catalog: catalog,
+        );
+      },
+      itemCount: CatalogModel.items.length,
+    );
+  }
+}
+
+class CatalogItem extends StatelessWidget {
+  final Item catalog;
+
+  const CatalogItem({super.key, required this.catalog});
+
+  @override
+  Widget build(BuildContext context) {
+    // Vx Box is Same as Container
+    return VxBox(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Image.network(catalog.image),
+        ],
+      ),
+    ).white.square(200).make();
   }
 }
