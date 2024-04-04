@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import 'dart:convert';
 import "package:my_cart/models/catalog.dart";
+import "package:my_cart/widgets/drawer.dart";
 import "package:my_cart/widgets/themes.dart";
 import "package:velocity_x/velocity_x.dart";
 
@@ -45,6 +46,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+      // drawer: myDrawer(),
     );
   }
 }
@@ -89,11 +91,57 @@ class CatalogItem extends StatelessWidget {
     // Vx Box is Same as Container
     return VxBox(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Image.network(catalog.image),
+          ProductImage(image: catalog.image),
+          Expanded(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              catalog.name.text.lg.color(MyTheme.darBluish).bold.make(),
+              catalog.desc.text.textStyle(context.captionStyle).make(),
+              10.heightBox,
+              ButtonBar(
+                alignment: MainAxisAlignment.spaceBetween,
+                buttonPadding: EdgeInsets.zero,
+                children: [
+                  "\$${catalog.price}".text.xl.bold.make(),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                        elevation: const MaterialStatePropertyAll(5),
+                        overlayColor:
+                            const MaterialStatePropertyAll(Colors.blueAccent),
+                        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5))),
+                        // shape: const MaterialStatePropertyAll(StadiumBorder()),
+                        backgroundColor:
+                            MaterialStateProperty.all(MyTheme.darBluish)),
+                    child: "Buy".text.color(Colors.white).make(),
+                  )
+                ],
+              ).pOnly(right: 8)
+            ],
+          ))
         ],
       ),
-    ).white.square(200).make();
+    ).white.rounded.square(150).make().py(16);
+  }
+}
+
+class ProductImage extends StatelessWidget {
+  final String image;
+
+  const ProductImage({super.key, required this.image});
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(image)
+        .box
+        .p8
+        .rounded
+        .color(MyTheme.creamColor)
+        .make()
+        .p(16)
+        .w40(context);
   }
 }
