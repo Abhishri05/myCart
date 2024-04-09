@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
+import "package:my_cart/Pages/home_detail_page.dart";
 import 'dart:convert';
 import "package:my_cart/models/catalog.dart";
-import "package:my_cart/widgets/drawer.dart";
 import "package:my_cart/widgets/themes.dart";
 import "package:velocity_x/velocity_x.dart";
 
@@ -42,7 +42,10 @@ class _HomePageState extends State<HomePage> {
           padding: Vx.m32, //32 ki Padding from All Sides
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [CatalogHeader(), Cataloglist().expand()],
+            children: [
+              CatalogHeader(),
+              Cataloglist().expand().py16(),
+            ],
           ),
         ),
       ),
@@ -72,8 +75,16 @@ class Cataloglist extends StatelessWidget {
       shrinkWrap: true,
       itemBuilder: (context, index) {
         final catalog = CatalogModel.items[index];
-        return CatalogItem(
-          catalog: catalog,
+        return InkWell(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeDetailPage(item: catalog),
+            ),
+          ),
+          child: CatalogItem(
+            catalog: catalog,
+          ),
         );
       },
       itemCount: CatalogModel.items.length,
@@ -92,7 +103,9 @@ class CatalogItem extends StatelessWidget {
     return VxBox(
       child: Row(
         children: [
-          ProductImage(image: catalog.image),
+          Hero(
+              tag: Key(catalog.id.toString()),
+              child: ProductImage(image: catalog.image)),
           Expanded(
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
