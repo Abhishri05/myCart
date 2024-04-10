@@ -1,5 +1,7 @@
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
+import "package:my_cart/Pages/cart_page.dart";
 import "package:my_cart/Pages/home_detail_page.dart";
 import 'dart:convert';
 import "package:my_cart/models/catalog.dart";
@@ -35,6 +37,18 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        // onPressed: () {
+        //   Navigator.push(
+        //       context,
+        //       MaterialPageRoute(
+        //         builder: (context) => const CartPage(),
+        //       ));
+        // },
+        onPressed: () => Navigator.pushNamed(context, '/cart'),
+        backgroundColor: Colors.amber,
+        child: const Icon(CupertinoIcons.cart),
+      ),
       backgroundColor: MyTheme.creamColor,
       body: SafeArea(
         // Upar aur niche overlap hone se bachane ke liye
@@ -44,7 +58,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CatalogHeader(),
-              Cataloglist().expand().py16(),
+              Cataloglist().expand(),
             ],
           ),
         ),
@@ -125,12 +139,12 @@ class CatalogItem extends StatelessWidget {
                         elevation: const MaterialStatePropertyAll(5),
                         overlayColor:
                             const MaterialStatePropertyAll(Colors.blueAccent),
-                        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5))),
-                        // shape: const MaterialStatePropertyAll(StadiumBorder()),
+                        // shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                        //     borderRadius: BorderRadius.circular(5))),
+                        shape: const MaterialStatePropertyAll(StadiumBorder()),
                         backgroundColor:
                             MaterialStateProperty.all(MyTheme.darBluish)),
-                    child: "Buy".text.color(Colors.white).make(),
+                    child: "Add to Cart".text.color(Colors.white).xs.make(),
                   )
                 ],
               ).pOnly(right: 8)
