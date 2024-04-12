@@ -1,7 +1,6 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
-import "package:my_cart/Pages/cart_page.dart";
 import "package:my_cart/Pages/home_detail_page.dart";
 import 'dart:convert';
 import "package:my_cart/models/catalog.dart";
