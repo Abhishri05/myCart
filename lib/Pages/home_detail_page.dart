@@ -49,7 +49,7 @@ class HomeDetailPage extends StatelessWidget {
               Hero(
                 tag: Key(item.id.toString()),
                 child: Image.network(item.image),
-              ).h32(context),
+              ).h24(context),
               Expanded(
                   child: VxArc(
                 height: 30,

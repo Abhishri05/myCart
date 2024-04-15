@@ -9,10 +9,11 @@ class MyTheme {
       canvasColor: creamColor,
       fontFamily: GoogleFonts.poppins().fontFamily,
       // primaryTextTheme: GoogleFonts.latoTextTheme()
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         color: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-        titleTextStyle: TextStyle(color: Colors.amber),
+        iconTheme: const IconThemeData(color: Colors.black),
+        titleTextStyle: TextStyle(
+            color: Colors.black, fontFamily: GoogleFonts.poppins().fontFamily),
         elevation: 0,
       ));
 
