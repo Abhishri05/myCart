@@ -31,7 +31,10 @@ class _CartTotal extends StatelessWidget {
           "\$999".text.xl5.color(MyTheme.darBluish).make(),
           30.widthBox,
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: "Buying Not Available".text.make()));
+            },
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(MyTheme.darBluish),
                 shape: MaterialStatePropertyAll(BeveledRectangleBorder(
@@ -53,13 +56,19 @@ class _CartListState extends State<_CartList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemBuilder: (context, index) => ListTile(
-        leading: const Icon(Icons.done),
-        title: "Item 1".text.make(),
-        trailing: IconButton(
-            onPressed: () {}, icon: const Icon(Icons.remove_circle_outline)),
-      ),
+      itemBuilder: (context, index) => Tile(),
       itemCount: 5,
+    );
+  }
+}
+
+class Tile extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: const Icon(Icons.done),
+      title: "Item 1".text.make(),
+      trailing: IconButton(
+          onPressed: () {}, icon: const Icon(Icons.remove_circle_outline)),
     );
   }
 }
