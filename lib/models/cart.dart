@@ -8,7 +8,7 @@ class CartModel {
   factory CartModel() => cartModel;
 
   // catalog field
-  CatalogModel _catalog;
+  CatalogModel _catalog = CatalogModel();
 
   // Collection of IDs - store Ids of each item
   final List<int> _itemIds = [];
@@ -17,7 +17,6 @@ class CartModel {
   CatalogModel get catalog => _catalog;
 
   set catalog(CatalogModel newCatalog) {
-    assert(newCatalog != null);
     _catalog = newCatalog;
   }
 
