@@ -1,4 +1,6 @@
+import 'package:my_cart/core/store.dart';
 import 'package:my_cart/models/catalog.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class CartModel {
   // catalog field
@@ -23,13 +25,23 @@ class CartModel {
 
   // Add Item
 
-  void add(Item item) {
-    _itemIds.add(item.id);
-  }
+  // void add(Item item) {
+  //   _itemIds.add(item.id);
+  // }
 
   // Remove Item
 
   void remove(Item item) {
     _itemIds.remove(item.id);
+  }
+}
+
+class Addmutation extends VxMutation<MyStore> {
+  final Item item;
+
+  Addmutation(this.item);
+  @override
+  perform() {
+    store?.cart._itemIds.add(item.id);
   }
 }
