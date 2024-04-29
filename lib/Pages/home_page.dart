@@ -2,11 +2,14 @@ import 'dart:convert';
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
+import "package:my_cart/core/store.dart";
+import "package:my_cart/models/cart.dart";
 import 'package:my_cart/widgets/AddtoCart.dart';
 import "package:velocity_x/velocity_x.dart";
 import "package:my_cart/Pages/home_detail_page.dart";
 import "package:my_cart/models/catalog.dart";
 import "package:my_cart/widgets/themes.dart";
+import "package:http/http.dart" as http;
 
 class HomePage extends StatefulWidget {
   @override
@@ -36,18 +39,27 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final _cart = (VxState.store as MyStore).cart;
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        // onPressed: () {
-        //   Navigator.push(
-        //       context,
-        //       MaterialPageRoute(
-        //         builder: (context) => const CartPage(),
-        //       ));
-        // },
-        onPressed: () => Navigator.pushNamed(context, '/cart'),
-        backgroundColor: Colors.amber,
-        child: const Icon(CupertinoIcons.cart),
+      floatingActionButton: VxBuilder(
+        mutations: const {Addmutation, removemutation},
+        builder: (context, store, status) => FloatingActionButton(
+          // onPressed: () {
+          //   Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => const CartPage(),
+          //       ));
+          // },
+          onPressed: () => Navigator.pushNamed(context, '/cart'),
+          backgroundColor: Colors.amber,
+          child: const Icon(CupertinoIcons.cart),
+        ).badge(
+            count: _cart.items.length,
+            color: Vx.black,
+            size: 23,
+            textStyle: const TextStyle(
+                fontSize: 12, color: Vx.white, fontWeight: FontWeight.bold)),
       ),
       backgroundColor: MyTheme.creamColor,
       body: SafeArea(
