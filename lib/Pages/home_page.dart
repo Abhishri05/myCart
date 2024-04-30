@@ -5,6 +5,7 @@ import "package:flutter/services.dart";
 import "package:my_cart/core/store.dart";
 import "package:my_cart/models/cart.dart";
 import 'package:my_cart/widgets/AddtoCart.dart';
+import "package:my_cart/widgets/drawer.dart";
 import "package:velocity_x/velocity_x.dart";
 import "package:my_cart/Pages/home_detail_page.dart";
 import "package:my_cart/models/catalog.dart";
@@ -41,6 +42,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final _cart = (VxState.store as MyStore).cart;
     return Scaffold(
+      appBar: AppBar(backgroundColor: MyTheme.creamColor,foregroundColor: MyTheme.creamColor,),
       floatingActionButton: VxBuilder(
         mutations: const {Addmutation, removemutation},
         builder: (context, store, status) => FloatingActionButton(
@@ -75,7 +77,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      // drawer: myDrawer(),
+      drawer: myDrawer(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
+import "package:my_cart/widgets/themes.dart";
 
 class myDrawer extends StatelessWidget {
   @override
@@ -9,14 +10,14 @@ class myDrawer extends StatelessWidget {
 
     return Drawer(
       child: Container(
-        color: Colors.blueAccent,
+        color: MyTheme.darBluish,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
               padding: EdgeInsets.zero,
               child: UserAccountsDrawerHeader(
-                decoration: const BoxDecoration(color: Colors.white),
+                decoration: BoxDecoration(color: MyTheme.creamColor),
                 margin: EdgeInsets.zero,
                 accountName: const Text(
                   "Abhishek Shrivastava",
