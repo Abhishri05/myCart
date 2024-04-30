@@ -9,7 +9,7 @@ import "package:velocity_x/velocity_x.dart";
 import "package:my_cart/Pages/home_detail_page.dart";
 import "package:my_cart/models/catalog.dart";
 import "package:my_cart/widgets/themes.dart";
-import "package:http/http.dart" as http;
+// import "package:http/http.dart" as http;
 
 class HomePage extends StatefulWidget {
   @override
